@@ -21,18 +21,19 @@ export default {
             type: Object
         }
     },
-    data() {
-      return {
-        isEditing:false
-      }
-    },
+    // data() {
+    //   return {
+    //     isEditing:false
+    //   }
+    // },
     methods: {
         deleteMemo(){
             const id =this.memo.id;
             this.$emit('deleteMemo',id);
         },
         handleDbclick() {
-          this.isEditing=true;
+          //this.isEditing=true;
+          this.$emit('setEditingId', this.memo.id)
           this.$nextTick(() => {
             this.$refs.content.focus();
           });
@@ -45,12 +46,19 @@ export default {
             return false;
           }
           this.$emit('updateMemo',{id,content});
-          this.isEditing=false;
+          //this.isEditing=false;
+          this.$refs.content.blur();
         },
         handleBlur() {
-          this.isEditing=false;
+          //this.isEditing=false;
+          this.$emit('resetEditingId');
         }
-    }
+    },
+    computed: {
+      isEditing() {
+        return this.memo.id === this.edtingId;
+      }
+    },
 }
 </script>
 
