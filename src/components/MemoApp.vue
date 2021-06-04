@@ -2,7 +2,8 @@
     <div class="memo-app">
         <memo-form v-on:addMemo="addMemo"/>
         <ul class="memo-list">
-        <memo v-for="memo in memos" :key="memo.id" :memo="memo" @deleteMemo="deleteMemo"/>
+        <memo v-for="memo in memos" :key="memo.id" :memo="memo" 
+        @deleteMemo="deleteMemo" @updateMemo="updateMemo"/>
         </ul>
     </div>
 </template>
@@ -30,6 +31,13 @@ export default {
         storeMemo() {
             const memosToString =JSON.stringify(this.memos);
             localStorage.setItem('memos', memosToString);
+        },
+        updateMemo() {
+            const {id,content}=payload;
+            const targetIndex=this.memos.findIndex(v=>v.id===id);
+            const targetMemo=this.memos[targetIndex];
+            this.memos.splice(targetIndex,1,{...targetMemo,content});
+            this.storeMemo();
         }
     },
     data() {
