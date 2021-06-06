@@ -68,8 +68,9 @@ export default {
   position: relative;
   margin-bottom: 20px;
   padding: 24px;
-  box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.2);
+  box-shadow: 24px;
   background-color: #fff;
+  list-style: none;
 }
 .memo-item button {
   background: none;
